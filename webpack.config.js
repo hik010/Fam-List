@@ -11,9 +11,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: [/\.jsx?$/ , /\.(sass|less|css)$/] ,
         exclude: /node_modules/,
-        loader: 'babel-loader',
+        loader:  'babel-loader',
         options: {
           presets: [
             '@babel/preset-react'
