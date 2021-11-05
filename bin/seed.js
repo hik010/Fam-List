@@ -24,12 +24,12 @@ const seed = async () => {
     color: color_options[Math.floor(Math.random() * color_options.length)],
   });
   const hayne = await User.create({
-    name: 'hayne',
+    name: 'josh',
     password: '1234',
     color: color_options[Math.floor(Math.random() * color_options.length)],
   });
   const sungin = await User.create({
-    name: 'sungin',
+    name: 'mary',
     password: '1234',
     color: color_options[Math.floor(Math.random() * color_options.length)],
   });
@@ -37,7 +37,7 @@ const seed = async () => {
   // tasks
   const allTasks = [
     {
-      description: 'walk the dog',
+      description: 'take out trash',
       userId: hyo.id,
       date: new Date('12/10/21'),
     },

@@ -19,7 +19,7 @@ function Main() {
   // rendering
   return (
     <div className="container mt-5 p-3 topLevel">
-      <h1 className="text-center">Todo List</h1>
+      <h1 className="text-center">Fam-List</h1>
 
       <AddForm />
 

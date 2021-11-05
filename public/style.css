@@ -17,6 +17,7 @@
   display: none;
 }
 
+
 .single-task:hover .hiddenIcons {
   display: inline;
 }
