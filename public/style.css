@@ -1,0 +1,27 @@
+.topLevel {
+  width: 85%;
+  background-color: rgb(234, 238, 243);
+  border-radius: 0.5rem;
+}
+
+.badge {
+  font-size: x-small;
+}
+
+.date-btn {
+  padding: 2px 4px;
+  font-size: 75%;
+}
+
+.hiddenIcons {
+  display: none;
+}
+
+.single-task:hover .hiddenIcons {
+  display: inline;
+}
+
+.list-group-item,
+.list-group-item:hover {
+  z-index: auto;
+}
