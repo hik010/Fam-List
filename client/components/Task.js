@@ -52,16 +52,25 @@ function Task({ task }) {
           ></i>
         </div>
         <div className="modal fade" id={`editForm${task.id}`} tabIndex="-1">
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-body">
-              <EditForm task={task} />
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">
+                  Edit Task
+                </h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                ></button>
+              </div>
+              <div className="modal-body">
+                <EditForm task={task} />
+              </div>
             </div>
           </div>
         </div>
       </div>
-      </div>
-
     </div>
   );
 }
