@@ -63,17 +63,24 @@ const seed = async () => {
   `);
 };
 
-seed().catch((err) => {
-  db.close();
-  console.log(`
+async function runSeed() {
+  seed().catch((err) => {
+    db.close();
+    console.log(`
 
-    Error seeding:
+      Error seeding:
 
-    ${err.message}
+      ${err.message}
 
-    ${err.stack}
+      ${err.stack}
 
-  `);
-});
+    `);
+  });
+
+}
+
+if (module === require.main) {
+  runSeed();
+}
 
 module.exports = seed;
