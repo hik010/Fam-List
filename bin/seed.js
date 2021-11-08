@@ -75,3 +75,5 @@ seed().catch((err) => {
 
   `);
 });
+
+module.exports = seed;
