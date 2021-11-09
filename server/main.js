@@ -7,9 +7,10 @@ const PORT = process.env.PORT || 8080;
 
 const init = async () => {
   try {
-    console.log('here');
     if (process.env.SEED === 'true') await seed();
     else await db.sync();
+
+    // await db.sync();
 
     server.listen(PORT, () => console.log(`
 
