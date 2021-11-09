@@ -1,40 +1,60 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container } from 'react-bootstrap';
 import TaskList from './TaskList';
 import { getTasks } from '../store/reducers/tasksReducer';
 import { getUsers } from '../store/reducers/usersReducer';
 import AddForm from './AddFrom';
-// import anime from 'animejs/lib/anime.es.js';
+import SignIn from './SignIn';
+import anime from 'animejs/lib/anime.es.js';
 
 // functional Main Component
 
 function Main() {
   //loading all tasks from database to redux
   const dispatch = useDispatch();
+  const [auth, setAuth] = useState({}); //empty as first
 
-  useEffect(() => {
+  const animateTitle = () => {
     var textWrapper = document.querySelector('.title');
     textWrapper.innerHTML = textWrapper.textContent.replace(
       /\S/g,
       "<span class='letter'>$&</span>"
     );
-    anime
-      .timeline({ loop: false })
-      .add({
-        targets: '.title .letter',
-        scale: [4, 1],
-        opacity: [0, 1],
-        translateZ: 0,
-        easing: 'easeOutExpo',
-        duration: 5000,
-        delay: (el, i) => 110 * i,
-      })
-  }, []);
+    anime.timeline({ loop: false }).add({
+      targets: '.title .letter',
+      scale: [4, 1],
+      opacity: [0, 1],
+      translateZ: 0,
+      easing: 'easeOutExpo',
+      duration: 5000,
+      delay: (el, i) => 110 * i,
+    });
+  };
 
+  // will fill up the auth of the state if token on window local storage
+  const attemptLogin = () => {
+    const tokenStored = window.localStorage.getItem('jwt-token');
+    if (tokenStored) {
+      // get the user data with that token
+      const userData = {name: "hyo", password: "1234"}
+      setAuth(userData);
+      dispatch(getTasks());
+      dispatch(getUsers());
+    }
+  }
+
+  const clickLogOut = () => {
+    window.localStorage.removeItem('jwt-token');
+    setAuth({});
+  }
+
+  // componentDidMount, after the very initial render
   useEffect(() => {
-    dispatch(getTasks());
-    dispatch(getUsers());
+    animateTitle();
+    attemptLogin();
+
+    // authentication steps
   }, []);
 
   // rendering
@@ -42,11 +62,19 @@ function Main() {
     <div className="container mt-5 p-3 topLevel">
       <h1 className="title text-center">Fam-List</h1>
 
-      <AddForm />
+      {JSON.stringify(auth) === '{}' ? (
+        <SignIn attemptLogin={attemptLogin} />
+      ) : (
+        <React.Fragment>
+          <h3 className="text-center"> Welcome, {auth.name} </h3>
+          <button type="button" className="btn btn-danger" onClick={clickLogOut}> Logout </button>
+          <AddForm />
 
-      <hr></hr>
+          <hr></hr>
 
-      <TaskList />
+          <TaskList />
+        </React.Fragment>
+      )}
     </div>
   );
 }
