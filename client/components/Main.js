@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { Container } from 'react-bootstrap';
 import TaskList from './TaskList';
 import { getTasks } from '../store/reducers/tasksReducer';
 import { getUsers } from '../store/reducers/usersReducer';
+import {getAuth, _clearAuth} from "../store/reducers/authReducer"
 import AddForm from './AddFrom';
 import SignIn from './SignIn';
 import anime from 'animejs/lib/anime.es.js';
@@ -13,7 +14,7 @@ import anime from 'animejs/lib/anime.es.js';
 function Main() {
   //loading all tasks from database to redux
   const dispatch = useDispatch();
-  const [auth, setAuth] = useState({}); //empty as first
+  const auth = useSelector(state => state.auth, shallowEqual);
 
   const animateTitle = () => {
     var textWrapper = document.querySelector('.title');
@@ -37,8 +38,8 @@ function Main() {
     const tokenStored = window.localStorage.getItem('jwt-token');
     if (tokenStored) {
       // get the user data with that token
-      const userData = {name: "hyo", password: "1234"}
-      setAuth(userData);
+      // const userData = {name: "hyo", password: "1234"}
+      dispatch(getAuth(tokenStored));
       dispatch(getTasks());
       dispatch(getUsers());
     }
@@ -46,7 +47,7 @@ function Main() {
 
   const clickLogOut = () => {
     window.localStorage.removeItem('jwt-token');
-    setAuth({});
+   dispatch(_clearAuth());
   }
 
   // componentDidMount, after the very initial render

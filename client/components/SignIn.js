@@ -12,7 +12,7 @@ function SignIn(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let {data : token} = await axios.post('/auth',formData);
+      let {data : token} = await axios.post('/auth/login',formData);
       window.localStorage.setItem('jwt-token', token);
       props.attemptLogin();
 
