@@ -2,6 +2,7 @@ import axios from 'axios';
 
 // action
 const GET_TASKS = 'GET_TASKS';
+const CLEAR_TASKS = 'CLEAR_TASKS'
 const TOGGLE_TASK = 'TOGGLE_TASK';
 const ADD_TASK = 'ADD_TASK';
 const DELETE_TASK = 'DELETE_TASK';
@@ -14,6 +15,10 @@ const _gotTasks = (payload) => {
     payload,
   };
 };
+
+export const _clearTask = () => ({
+  type : CLEAR_TASKS
+})
 
 export const toggleTask = (id) => {
   return {
@@ -97,6 +102,8 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case GET_TASKS:
       return action.payload;
+    case CLEAR_TASKS:
+      return [];
     case TOGGLE_TASK: {
       return state.map((task) => {
         if (task.id === action.id) return { ...task, status: !task.status };

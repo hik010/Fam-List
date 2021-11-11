@@ -3,6 +3,7 @@ import axios from 'axios'
 
 // action
 const GET_USERS = 'GET_USERS';
+const CLEAR_USERS = 'CLEAR_USERS';
 
 // action creator
 const gotUsers = (payload) => {
@@ -12,6 +13,11 @@ const gotUsers = (payload) => {
   }
 }
 
+export const _clearUsers = () => {
+  return {
+    type: CLEAR_USERS
+  }
+}
 
 // thunk creator
 export const getUsers = () => {
@@ -35,6 +41,8 @@ export default (state = initialState, action) => {
   switch (action.type){
     case GET_USERS:
       return action.payload;
+    case CLEAR_USERS:
+      return [];
     default:
       return state;
   }

@@ -3,7 +3,7 @@ const server = require('./index');
 const { db } = require('./db');
 const seed = require('../bin/seed');
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8088;
 
 const init = async () => {
   try {
