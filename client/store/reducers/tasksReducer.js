@@ -16,7 +16,7 @@ const _gotTasks = (payload) => {
   };
 };
 
-export const _clearTask = () => ({
+export const _clearTasks = () => ({
   type : CLEAR_TASKS
 })
 

@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { Container } from 'react-bootstrap';
 import TaskList from './TaskList';
-import { getTasks } from '../store/reducers/tasksReducer';
-import { getUsers } from '../store/reducers/usersReducer';
+import { getTasks, _clearTasks } from '../store/reducers/tasksReducer';
+import { getUsers, _clearUsers } from '../store/reducers/usersReducer';
 import {getAuth, _clearAuth} from "../store/reducers/authReducer"
 import AddForm from './AddFrom';
 import SignIn from './SignIn';
@@ -48,6 +48,8 @@ function Main() {
   const clickLogOut = () => {
     window.localStorage.removeItem('jwt-token');
    dispatch(_clearAuth());
+   dispatch(_clearTasks());
+   dispatch(_clearUsers());
   }
 
   // componentDidMount, after the very initial render
@@ -57,6 +59,8 @@ function Main() {
 
     // authentication steps
   }, []);
+
+
 
   // rendering
   return (

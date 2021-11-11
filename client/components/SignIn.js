@@ -1,8 +1,13 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { authenticate } from '../store/reducers/authReducer';
+import { getTasks } from '../store/reducers/tasksReducer';
+import { getUsers } from '../store/reducers/usersReducer';
 
 function SignIn(props) {
   const [formData, setFormData] = useState({ name: '', password: '' });
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -12,12 +17,12 @@ function SignIn(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let {data : token} = await axios.post('/auth/login',formData);
-      window.localStorage.setItem('jwt-token', token);
+      await authenticate(formData.name, formData.password, 'login')
       props.attemptLogin();
 
-    } catch(e) {
-      alert(e.response.data)
+    } catch(err) {
+      // console.log('error?')
+      alert(err.response.data)
     }
   }
 
