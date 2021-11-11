@@ -72,7 +72,6 @@ User.byToken = async (token) => {
   }
 
 
-
 }
 
 module.exports = User;
