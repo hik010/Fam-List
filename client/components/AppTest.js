@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import anime from 'animejs/lib/anime.es.js';
 import { Route, Routes, useNavigate } from 'react-router';
-import SignIn from './SignIn';
+import AuthForm from './AuthForm';
 import Home from './Home';
 import { getTasks, _clearTasks } from '../store/reducers/tasksReducer';
 import { getUsers, _clearUsers } from '../store/reducers/usersReducer';
@@ -49,7 +49,7 @@ function AppTest() {
     dispatch(_clearAuth());
     dispatch(_clearTasks());
     dispatch(_clearUsers());
-    navigate('/signin');
+    navigate('/login');
   };
 
   // componentDidMount
@@ -57,6 +57,7 @@ function AppTest() {
   useEffect(() => {
     animateTitle();
     attemptLogin();
+    navigate('/login');
   }, []);
 
   return (
@@ -64,8 +65,8 @@ function AppTest() {
       <h1 className="title text-center">Fam-List</h1>
       <Routes>
         <Route
-          path="/signin"
-          element={<SignIn attemptLogin={attemptLogin} />}
+          path="/login"
+          element={<AuthForm attemptLogin={attemptLogin} method='login'/>}
         />
         <Route path="/home" element={<Home clickLogOut={clickLogOut} />} />
       </Routes>

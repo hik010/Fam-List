@@ -5,7 +5,7 @@ import { authenticate } from '../store/reducers/authReducer';
 import { getTasks } from '../store/reducers/tasksReducer';
 import { getUsers } from '../store/reducers/usersReducer';
 
-function SignIn(props) {
+function AuthForm({attemptLogin, method}) {
   const [formData, setFormData] = useState({ name: '', password: '' });
   const dispatch = useDispatch();
 
@@ -17,8 +17,8 @@ function SignIn(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await authenticate(formData.name, formData.password, 'login')
-      props.attemptLogin();
+      await authenticate(formData.name, formData.password, method)
+      attemptLogin();
 
     } catch(err) {
       // console.log('error?')
@@ -59,10 +59,10 @@ function SignIn(props) {
         />
       </div>
       <button type="submit" className="btn btn-primary" disabled={disableSubmit()}>
-        Login
+        {method.toUpperCase()}
       </button>
     </form>
   );
 }
 
-export default SignIn;
+export default AuthForm;

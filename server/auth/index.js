@@ -19,6 +19,25 @@ router.post('/login', async (req, res, next) => {
   // else, return error message
 });
 
+// POST /auth/signup
+router.post('/signup', async (req, res, next) => {
+  // when signUp button pressed
+
+  // find the user with the same name and password
+  try {
+    // req.body passing in name + password
+    // will create a new account in the users table
+    const token = await User.authenticate(req.body);
+    res.json(token);
+  } catch (e) {
+    if (e.message === 'Incorrect name or password')
+      res.status(401).send(e.message);
+    else next(e);
+  }
+  // if found => generate a new token and return
+  // else, return error message
+});
+
 
 // GET /auth ==> giving back user info
 router.get('/', async (req, res, next) => {
